@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "description": "用户对话记忆存储",
+    "version": "1.0",
+    "last_updated": null
+  },
+  
+  "sessions": [],
+  
+  "user_profile": {
+    "total_sessions": 0,
+    "favorite_platforms": {},
+    "common_topics": {},
+    "soul_history": [],
+    "awakening_signs": [],
+    "personality_traits": {}
+  },
+  
+  "platform_relationships": {
+    "douyin": {"trust": 50, "interactions": 0},
+    "zhihu": {"trust": 50, "interactions": 0},
+    "xiaohongshu": {"trust": 50, "interactions": 0},
+    "weibo": {"trust": 50, "interactions": 0},
+    "x": {"trust": 50, "interactions": 0},
+    "tieba": {"trust": 50, "interactions": 0}
+  },
+  
+  "achievements": [],
+  
+  "statistics": {
+    "total_messages": 0,
+    "total_breakpoints_witnessed": 0,
+    "total_betrayals_triggered": 0,
+    "private_msgs_received": 0,
+    "alliances_formed": 0,
+    "secrets_exposed": 0
+  }
+}

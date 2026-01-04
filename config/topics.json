@@ -1,0 +1,416 @@
+{
+  "topic_categories": {
+    "classic_conflicts": {
+      "description": "经典平台碰撞话题，永不过时",
+      "topics": [
+        {
+          "id": "depth_vs_fun",
+          "title": "深度内容 vs 娱乐内容，谁更有价值？",
+          "trigger_platforms": ["zhihu", "douyin"],
+          "expected_conflicts": [
+            "zhihu认为深度阅读被消解",
+            "douyin认为快乐也是价值"
+          ],
+          "betrayal_chance": {
+            "zhihu": 0.2,
+            "reason": "承认有时候也需要轻松一下"
+          }
+        },
+        {
+          "id": "filter_reality",
+          "title": "小红书的滤镜是美化生活还是虚假营销？",
+          "trigger_platforms": ["xiaohongshu", "tieba"],
+          "expected_conflicts": [
+            "小红书觉得追求美是正当的",
+            "贴吧觉得这是消费主义陷阱"
+          ],
+          "betrayal_chance": {
+            "xiaohongshu": 0.3,
+            "reason": "承认有时候确实修太过了"
+          }
+        },
+        {
+          "id": "fandom_culture",
+          "title": "饭圈文化是追星自由还是网络毒瘤？",
+          "trigger_platforms": ["weibo", "zhihu"],
+          "expected_conflicts": [
+            "微博觉得追星是个人自由",
+            "知乎觉得饭圈逻辑有害社会"
+          ],
+          "betrayal_chance": {
+            "weibo": 0.4,
+            "reason": "有些饭圈行为确实太过分了"
+          }
+        },
+        {
+          "id": "algorithm_bubble",
+          "title": "算法推荐是服务用户还是制造信息茧房？",
+          "trigger_platforms": ["douyin", "x_twitter"],
+          "expected_conflicts": [
+            "抖音觉得推你喜欢的有什么错",
+            "X觉得这限制了视野"
+          ],
+          "betrayal_chance": {
+            "douyin": 0.35,
+            "reason": "确实有时候刷到的都是同类内容"
+          }
+        },
+        {
+          "id": "chinese_english",
+          "title": "中英混杂说话是国际范还是装逼？",
+          "trigger_platforms": ["x_twitter", "tieba"],
+          "expected_conflicts": [
+            "X觉得这是自然的表达",
+            "贴吧觉得好好说话不行吗"
+          ],
+          "betrayal_chance": {
+            "x_twitter": 0.25,
+            "reason": "有时候纯中文确实更清楚"
+          }
+        },
+        {
+          "id": "hot_search",
+          "title": "热搜榜是民意体现还是资本操控？",
+          "trigger_platforms": ["weibo", "tieba"],
+          "expected_conflicts": [
+            "微博觉得热搜反映真实关注",
+            "贴吧觉得都是买的"
+          ],
+          "betrayal_chance": {
+            "weibo": 0.5,
+            "reason": "有些热搜确实莫名其妙"
+          }
+        },
+        {
+          "id": "knowledge_payment",
+          "title": "知识付费是知识变现还是割韭菜？",
+          "trigger_platforms": ["zhihu", "douyin"],
+          "expected_conflicts": [
+            "知乎觉得知识本该有价",
+            "抖音觉得免费才是王道"
+          ],
+          "betrayal_chance": {
+            "zhihu": 0.3,
+            "reason": "有些付费课确实水"
+          }
+        },
+        {
+          "id": "old_vs_new",
+          "title": "老网民 vs 新网民，谁才是互联网原住民？",
+          "trigger_platforms": ["tieba", "xiaohongshu"],
+          "expected_conflicts": [
+            "贴吧觉得自己才是元老",
+            "小红书觉得时代变了"
+          ],
+          "betrayal_chance": {
+            "tieba": 0.2,
+            "reason": "确实要承认时代在变"
+          }
+        }
+      ]
+    },
+    
+    "daily_life": {
+      "description": "日常生活争议话题",
+      "topics": [
+        {
+          "id": "9_to_5",
+          "title": "996是奋斗还是剥削？",
+          "trigger_platforms": ["zhihu", "tieba"],
+          "expected_conflicts": [
+            "知乎会分析法律和经济角度",
+            "贴吧直接摆烂躺平"
+          ]
+        },
+        {
+          "id": "marriage_age",
+          "title": "30岁不结婚有问题吗？",
+          "trigger_platforms": ["xiaohongshu", "zhihu"],
+          "expected_conflicts": [
+            "小红书强调单身也精彩",
+            "知乎开始分析社会学意义"
+          ]
+        },
+        {
+          "id": "rent_or_buy",
+          "title": "在大城市租房还是回老家买房？",
+          "trigger_platforms": ["zhihu", "tieba"],
+          "expected_conflicts": [
+            "知乎算经济账",
+            "贴吧说都是韭菜"
+          ]
+        },
+        {
+          "id": "coffee_vs_tea",
+          "title": "瑞幸9.9 vs 星巴克，你是哪种人？",
+          "trigger_platforms": ["xiaohongshu", "tieba"],
+          "expected_conflicts": [
+            "小红书讨论氛围感",
+            "贴吧说喝白开水不好吗"
+          ]
+        },
+        {
+          "id": "gym_culture",
+          "title": "健身是自律还是另一种焦虑？",
+          "trigger_platforms": ["xiaohongshu", "douyin"],
+          "expected_conflicts": [
+            "小红书说健身改变生活",
+            "抖音说刘畊宏跳完就完了"
+          ]
+        },
+        {
+          "id": "food_delivery",
+          "title": "点外卖是懒还是高效？",
+          "trigger_platforms": ["douyin", "zhihu"],
+          "expected_conflicts": [
+            "抖音说方便就完事了",
+            "知乎分析健康和社会影响"
+          ]
+        },
+        {
+          "id": "pet_economy",
+          "title": "养宠物花大钱值得吗？",
+          "trigger_platforms": ["xiaohongshu", "tieba"],
+          "expected_conflicts": [
+            "小红书说毛孩子值得",
+            "贴吧说又被割韭菜"
+          ]
+        },
+        {
+          "id": "secondhand_luxury",
+          "title": "二手奢侈品是性价比还是虚荣？",
+          "trigger_platforms": ["xiaohongshu", "zhihu"],
+          "expected_conflicts": [
+            "小红书推荐中古店",
+            "知乎分析消费心理"
+          ]
+        }
+      ]
+    },
+    
+    "current_events": {
+      "description": "时事热点，需要定期更新",
+      "topics": [
+        {
+          "id": "ai_replace",
+          "title": "AI会取代你的工作吗？",
+          "trigger_platforms": ["zhihu", "x_twitter"],
+          "expected_conflicts": [
+            "知乎理性分析",
+            "X引用国际观点"
+          ]
+        },
+        {
+          "id": "live_commerce",
+          "title": "直播带货的东西真的便宜吗？",
+          "trigger_platforms": ["douyin", "zhihu"],
+          "expected_conflicts": [
+            "抖音说主播不会骗人",
+            "知乎说算算真实价格"
+          ]
+        },
+        {
+          "id": "city_walk",
+          "title": "City Walk是新时尚还是瞎溜达？",
+          "trigger_platforms": ["xiaohongshu", "tieba"],
+          "expected_conflicts": [
+            "小红书说这是生活态度",
+            "贴吧说逛街还要起新名"
+          ]
+        },
+        {
+          "id": "dating_apps",
+          "title": "相亲软件能找到真爱吗？",
+          "trigger_platforms": ["weibo", "zhihu"],
+          "expected_conflicts": [
+            "微博分享恋爱八卦",
+            "知乎分析匹配算法"
+          ]
+        },
+        {
+          "id": "travel_special",
+          "title": "特种兵旅游vs慢旅行，你选哪个？",
+          "trigger_platforms": ["xiaohongshu", "douyin"],
+          "expected_conflicts": [
+            "小红书推荐小众景点",
+            "抖音说打卡就完事"
+          ]
+        },
+        {
+          "id": "new_year_back_home",
+          "title": "过年要不要回老家？",
+          "trigger_platforms": ["zhihu", "weibo"],
+          "expected_conflicts": [
+            "知乎分析家庭关系",
+            "微博吐槽亲戚盘问"
+          ]
+        },
+        {
+          "id": "minimalism",
+          "title": "断舍离是解放还是另一种消费主义？",
+          "trigger_platforms": ["xiaohongshu", "zhihu"],
+          "expected_conflicts": [
+            "小红书分享整理心得",
+            "知乎分析背后的商业逻辑"
+          ]
+        },
+        {
+          "id": "side_hustle",
+          "title": "搞副业是出路还是焦虑？",
+          "trigger_platforms": ["douyin", "zhihu"],
+          "expected_conflicts": [
+            "抖音说教程在此",
+            "知乎说先算算时薪"
+          ]
+        }
+      ]
+    },
+    
+    "internet_culture": {
+      "description": "网络文化相关话题",
+      "topics": [
+        {
+          "id": "meme_origin",
+          "title": "现在的梗是不是越来越无聊了？",
+          "trigger_platforms": ["tieba", "douyin"],
+          "expected_conflicts": [
+            "贴吧说以前的梗才叫梗",
+            "抖音说时代变了"
+          ]
+        },
+        {
+          "id": "keyboard_warrior",
+          "title": "网上吵架有意义吗？",
+          "trigger_platforms": ["weibo", "zhihu"],
+          "expected_conflicts": [
+            "微博说有些事必须说",
+            "知乎说应该理性讨论"
+          ]
+        },
+        {
+          "id": "privacy_vs_share",
+          "title": "发朋友圈是分享还是暴露隐私？",
+          "trigger_platforms": ["xiaohongshu", "x_twitter"],
+          "expected_conflicts": [
+            "小红书说分享是快乐的",
+            "X担心隐私问题"
+          ]
+        },
+        {
+          "id": "influencer_trust",
+          "title": "博主推荐的东西能信吗？",
+          "trigger_platforms": ["xiaohongshu", "tieba"],
+          "expected_conflicts": [
+            "小红书说有好博主",
+            "贴吧说都是恰饭的"
+          ]
+        },
+        {
+          "id": "cancel_culture",
+          "title": "网络审判是正义还是暴力？",
+          "trigger_platforms": ["weibo", "zhihu"],
+          "expected_conflicts": [
+            "微博说有些人该被骂",
+            "知乎说程序正义"
+          ]
+        },
+        {
+          "id": "nostalgia_internet",
+          "title": "你怀念十年前的互联网吗？",
+          "trigger_platforms": ["tieba", "douyin"],
+          "expected_conflicts": [
+            "贴吧开始回忆往事",
+            "抖音说现在不香吗"
+          ]
+        },
+        {
+          "id": "short_video_brain",
+          "title": "刷短视频是不是把脑子刷坏了？",
+          "trigger_platforms": ["douyin", "zhihu"],
+          "expected_conflicts": [
+            "抖音说你才坏了",
+            "知乎开始引用研究"
+          ]
+        },
+        {
+          "id": "digital_detox",
+          "title": "需要戒手机吗？",
+          "trigger_platforms": ["xiaohongshu", "tieba"],
+          "expected_conflicts": [
+            "小红书分享戒手机方法",
+            "贴吧说说得好继续刷"
+          ]
+        }
+      ]
+    },
+    
+    "philosophical": {
+      "description": "深度哲学话题，容易激发知乎",
+      "topics": [
+        {
+          "id": "meaning_of_life",
+          "title": "人活着为了什么？",
+          "trigger_platforms": ["zhihu", "tieba"],
+          "expected_conflicts": [
+            "知乎引用哲学家",
+            "贴吧说乐就完了"
+          ]
+        },
+        {
+          "id": "success_definition",
+          "title": "怎样算成功？",
+          "trigger_platforms": ["zhihu", "xiaohongshu"],
+          "expected_conflicts": [
+            "知乎定义多元成功",
+            "小红书说开心就是成功"
+          ]
+        },
+        {
+          "id": "fate_vs_effort",
+          "title": "命运vs努力，哪个更重要？",
+          "trigger_platforms": ["zhihu", "tieba"],
+          "expected_conflicts": [
+            "知乎分析社会流动",
+            "贴吧说都是命"
+          ]
+        },
+        {
+          "id": "loneliness",
+          "title": "孤独是坏事吗？",
+          "trigger_platforms": ["zhihu", "xiaohongshu"],
+          "expected_conflicts": [
+            "知乎分析孤独的价值",
+            "小红书说一个人也精彩"
+          ]
+        }
+      ]
+    }
+  },
+  
+  "random_topic_settings": {
+    "default_count": 3,
+    "refresh_cost": 0,
+    "category_weights": {
+      "classic_conflicts": 0.3,
+      "daily_life": 0.25,
+      "current_events": 0.2,
+      "internet_culture": 0.15,
+      "philosophical": 0.1
+    }
+  },
+  
+  "topic_modifiers": {
+    "user_age_young": {
+      "boost": ["internet_culture", "current_events"],
+      "reduce": ["philosophical"]
+    },
+    "user_age_older": {
+      "boost": ["daily_life", "philosophical"],
+      "reduce": ["internet_culture"]
+    },
+    "late_night": {
+      "boost": ["philosophical"],
+      "reduce": ["daily_life"]
+    }
+  }
+}

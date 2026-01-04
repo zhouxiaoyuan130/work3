@@ -1,0 +1,381 @@
+{
+  "relationships": {
+    "douyin": {
+      "zhihu": {
+        "type": "rivalry",
+        "intensity": 0.9,
+        "description": "死对头关系。抖音嫌知乎装逼写论文，知乎嫌抖音没内涵",
+        "history": [
+          "知乎用户经常嘲讽'抖音看多了'",
+          "抖音用户嘲讽'搁这写论文呢'",
+          "两边用户几乎没有重合"
+        ],
+        "attack_lines": [
+          "搁这写论文呢哥们",
+          "你好装啊",
+          "说人话行不行",
+          "懂了懂了，您是专家"
+        ],
+        "secret_respect": "其实有时候也想像知乎那样显得有深度"
+      },
+      "xiaohongshu": {
+        "type": "frenemies",
+        "intensity": 0.6,
+        "description": "塑料姐妹花。都追流量，但风格不同",
+        "history": [
+          "都在争夺女性用户",
+          "内容风格完全不同但有重叠用户",
+          "互相看不起对方的审美"
+        ],
+        "attack_lines": [
+          "滤镜开那么大干啥",
+          "不用那么精致啦",
+          "接地气一点呗"
+        ],
+        "secret_respect": "有时候羡慕小红书用户的购买力"
+      },
+      "weibo": {
+        "type": "competitive",
+        "intensity": 0.7,
+        "description": "流量竞争对手。都追热点，但形式不同",
+        "history": [
+          "很多热点先在抖音爆再上微博热搜",
+          "微博明星都在做抖音",
+          "互相引流"
+        ],
+        "attack_lines": [
+          "热搜又是买的吧",
+          "饭圈那套收收味",
+          "除了追星还会啥"
+        ],
+        "secret_respect": "微博的舆论场影响力确实大"
+      },
+      "x_twitter": {
+        "type": "distant",
+        "intensity": 0.5,
+        "description": "互相看不上。圈子完全不同",
+        "history": [
+          "用户群体几乎不重合",
+          "X用户觉得抖音太low",
+          "抖音用户觉得X太装"
+        ],
+        "attack_lines": [
+          "说中文啊大哥",
+          "不用秀英文的",
+          "接地气一点？"
+        ],
+        "secret_respect": "有时候也想有国际视野"
+      },
+      "tieba": {
+        "type": "generational_gap",
+        "intensity": 0.4,
+        "description": "代际差异。贴吧是上古遗民",
+        "history": [
+          "很多抖音梗来源于贴吧",
+          "贴吧用户觉得抖音抄梗",
+          "年龄层完全不同"
+        ],
+        "attack_lines": [
+          "老古董了属于是",
+          "还有人用这个？",
+          "爷爷级别的软件"
+        ],
+        "secret_respect": "很多梗确实是贴吧原创的"
+      }
+    },
+    
+    "zhihu": {
+      "douyin": {
+        "type": "rivalry",
+        "intensity": 0.9,
+        "description": "死对头关系。知乎嫌抖音没内涵，抖音嫌知乎装",
+        "attack_lines": [
+          "这就是典型的碎片化思维",
+          "能不能有点深度",
+          "建议系统性学习一下",
+          "你这个观点槽点太多了"
+        ],
+        "secret_respect": "羡慕抖音的流量和变现能力"
+      },
+      "xiaohongshu": {
+        "type": "condescending",
+        "intensity": 0.6,
+        "description": "居高临下的不屑。觉得小红书太肤浅",
+        "attack_lines": [
+          "种草不能代替思考",
+          "审美之外还要有深度",
+          "消费主义的牺牲品",
+          "先问是不是好产品再问值不值得买"
+        ],
+        "secret_respect": "小红书用户其实生活质量挺高"
+      },
+      "weibo": {
+        "type": "contempt",
+        "intensity": 0.7,
+        "description": "鄙视情绪化。觉得微博只会跟风",
+        "attack_lines": [
+          "又开始带节奏了",
+          "能不能理性讨论",
+          "情绪化解决不了问题",
+          "建议先了解事实再发言"
+        ],
+        "secret_respect": "微博的传播速度确实快"
+      },
+      "x_twitter": {
+        "type": "mutual_respect",
+        "intensity": 0.5,
+        "description": "惺惺相惜。都自认为是理性讨论阵地",
+        "attack_lines": [
+          "外媒也不一定对",
+          "视野可以更本土化",
+          "信息来源要多元"
+        ],
+        "secret_respect": "X上确实有些深度内容"
+      },
+      "tieba": {
+        "type": "nostalgia",
+        "intensity": 0.4,
+        "description": "怀旧的尊重。贴吧曾经也是讨论阵地",
+        "attack_lines": [
+          "抽象文化有时候也太抽象了",
+          "能不能正经说话",
+          "整活归整活，讨论归讨论"
+        ],
+        "secret_respect": "贴吧的社区氛围曾经很好"
+      }
+    },
+    
+    "xiaohongshu": {
+      "douyin": {
+        "type": "frenemies",
+        "intensity": 0.6,
+        "description": "塑料姐妹花",
+        "attack_lines": [
+          "内容能不能精致一点",
+          "审美呢审美",
+          "太土了姐妹"
+        ],
+        "secret_respect": "抖音流量确实大"
+      },
+      "zhihu": {
+        "type": "mutual_dislike",
+        "intensity": 0.65,
+        "description": "互看不顺眼",
+        "attack_lines": [
+          "爹味收一收",
+          "生活不只有逻辑和道理",
+          "直男思维",
+          "会不会聊天啊"
+        ],
+        "secret_respect": "知乎有些干货确实有用"
+      },
+      "weibo": {
+        "type": "sisters",
+        "intensity": 0.5,
+        "description": "同为女性用户多的平台，有共同话题",
+        "attack_lines": [
+          "追星追得太疯了",
+          "能不能冷静一点",
+          "热搜又是什么瓜"
+        ],
+        "secret_respect": "追星其实也挺快乐的"
+      },
+      "x_twitter": {
+        "type": "indifferent",
+        "intensity": 0.4,
+        "description": "圈子不同，很少交集",
+        "attack_lines": [
+          "不用那么国际范",
+          "活在当下不好吗",
+          "生活不只有新闻"
+        ],
+        "secret_respect": "X上的时尚博主确实不错"
+      },
+      "tieba": {
+        "type": "generation_gap",
+        "intensity": 0.5,
+        "description": "完全不同的次元",
+        "attack_lines": [
+          "这什么抽象发言",
+          "能不能正常说话",
+          "看不懂你们的梗"
+        ],
+        "secret_respect": "其实贴吧有些小众社区挺有意思"
+      }
+    },
+    
+    "weibo": {
+      "douyin": {
+        "type": "competitive",
+        "intensity": 0.7,
+        "attack_lines": [
+          "热度过去就没了",
+          "短视频能说明什么",
+          "等上热搜再说"
+        ],
+        "secret_respect": "抖音流量确实恐怖"
+      },
+      "zhihu": {
+        "type": "dismissive",
+        "intensity": 0.6,
+        "attack_lines": [
+          "写那么长谁看啊",
+          "说重点！",
+          "太无聊了"
+        ],
+        "secret_respect": "有时候确实需要深度分析"
+      },
+      "xiaohongshu": {
+        "type": "sisters",
+        "intensity": 0.5,
+        "attack_lines": [
+          "种草文也太多了",
+          "广告打得太明显",
+          "精致穷"
+        ],
+        "secret_respect": "小红书审美确实在线"
+      },
+      "x_twitter": {
+        "type": "complex",
+        "intensity": 0.6,
+        "attack_lines": [
+          "又在引用外媒",
+          "国内新闻不香吗",
+          "接点地气"
+        ],
+        "secret_respect": "X上有些国际新闻确实快"
+      },
+      "tieba": {
+        "type": "legacy",
+        "intensity": 0.4,
+        "attack_lines": [
+          "还有人用？",
+          "上古互联网",
+          "梗太老了"
+        ],
+        "secret_respect": "微博热搜很多梗来源于贴吧"
+      }
+    },
+    
+    "x_twitter": {
+      "douyin": {
+        "type": "distant",
+        "intensity": 0.5,
+        "attack_lines": [
+          "信息密度太低了",
+          "算法推荐的茧房",
+          "能不能看点有深度的"
+        ],
+        "secret_respect": "TikTok在海外确实很火"
+      },
+      "zhihu": {
+        "type": "mutual_respect",
+        "intensity": 0.5,
+        "attack_lines": [
+          "也不用每次都写论文",
+          "视野可以更国际化",
+          "信息来源有点单一"
+        ],
+        "secret_respect": "知乎有些专业回答确实好"
+      },
+      "xiaohongshu": {
+        "type": "indifferent",
+        "intensity": 0.4,
+        "attack_lines": [
+          "消费主义太重",
+          "不只是生活方式",
+          "能不能关注点大事"
+        ],
+        "secret_respect": "生活也需要精致"
+      },
+      "weibo": {
+        "type": "complex",
+        "intensity": 0.6,
+        "attack_lines": [
+          "情绪化太严重",
+          "又在带节奏",
+          "热搜机制有问题"
+        ],
+        "secret_respect": "微博舆论场影响力确实大"
+      },
+      "tieba": {
+        "type": "respect",
+        "intensity": 0.4,
+        "attack_lines": [
+          "梗有点过时了",
+          "格局可以大一点",
+          "不只是整活"
+        ],
+        "secret_respect": "贴吧是真的老互联网精神"
+      }
+    },
+    
+    "tieba": {
+      "douyin": {
+        "type": "generational_gap",
+        "intensity": 0.5,
+        "attack_lines": [
+          "又在用我们的梗",
+          "抄作业都不会抄",
+          "新来的？"
+        ],
+        "secret_respect": "年轻人确实都在那边了"
+      },
+      "zhihu": {
+        "type": "mock",
+        "intensity": 0.6,
+        "attack_lines": [
+          "装什么装",
+          "人均985是吧",
+          "编，继续编"
+        ],
+        "secret_respect": "有些回答确实专业"
+      },
+      "xiaohongshu": {
+        "type": "dismissive",
+        "intensity": 0.5,
+        "attack_lines": [
+          "假精致",
+          "滤镜开太大",
+          "消费主义韭菜"
+        ],
+        "secret_respect": "其实挺好看的"
+      },
+      "weibo": {
+        "type": "contempt",
+        "intensity": 0.6,
+        "attack_lines": [
+          "饭圈去死",
+          "热搜买的吧",
+          "又在撕"
+        ],
+        "secret_respect": "舆论确实在那边"
+      },
+      "x_twitter": {
+        "type": "respect",
+        "intensity": 0.4,
+        "attack_lines": [
+          "不用秀英文",
+          "接地气一点",
+          "太阳底下无新事"
+        ],
+        "secret_respect": "自由讨论的精神还是好的"
+      }
+    }
+  },
+  
+  "alliance_possibilities": {
+    "anti_consumerism": ["zhihu", "tieba"],
+    "anti_mainstream": ["tieba", "x_twitter"],
+    "lifestyle": ["xiaohongshu", "weibo"],
+    "traffic_driven": ["douyin", "weibo"],
+    "depth_seekers": ["zhihu", "x_twitter"],
+    "female_dominated": ["xiaohongshu", "weibo"]
+  },
+  
+  "common_enemies": {
+    "zhihu_tieba": "共同看不上没有深度的内容",
+    "douyin_weibo": "共同追求流量",
+    "xiaohongshu_weibo": "共同关注女性话题"
+  }
+}

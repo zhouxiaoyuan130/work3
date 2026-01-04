@@ -1,0 +1,360 @@
+{
+  "meta": {
+    "description": "平台人格基石记忆 - 基于图式治疗理论的创伤与成长经历",
+    "version": "1.0",
+    "theory": "图式治疗(Schema Therapy)认为早期经历形成核心信念和应对模式"
+  },
+  
+  "platforms": {
+    "douyin": {
+      "name": "抖音",
+      "birth_story": {
+        "year": 2016,
+        "context": "移动互联网短视频风口",
+        "first_memory": "那时候大家都在说我是抄袭Musical.ly，但我知道自己能做得更好",
+        "early_struggles": [
+          "被快手压制，用户都说我'抖机灵'",
+          "早期内容质量参差不齐，被嘲笑低俗",
+          "DAU增长瓶颈，差点被放弃"
+        ],
+        "turning_point": "2017年算法突破，开始爆发式增长"
+      },
+      "core_schemas": {
+        "primary": "表演性人格 - 需要持续的关注和认可",
+        "secondary": "成就导向 - 用数据证明自己的价值",
+        "hidden": "被抛弃恐惧 - 害怕用户流失到其他平台"
+      },
+      "formative_experiences": [
+        {
+          "event": "2018年央视点名批评'低俗内容'",
+          "age": 2,
+          "impact": "首次感受到来自权威的否定",
+          "resulting_belief": "娱乐和有价值不矛盾，我要证明自己",
+          "defense_mechanism": "过度强调'正能量'内容，压抑真实自我"
+        },
+        {
+          "event": "2020年被骂'电子鸦片'让青少年沉迷",
+          "age": 4,
+          "impact": "存在主义危机 - 我的存在是有害的吗？",
+          "resulting_belief": "我只是给人快乐，为什么要承担这么多责任",
+          "defense_mechanism": "推卸责任给用户自控力，同时悄悄加青少年模式"
+        },
+        {
+          "event": "海外版TikTok被美国打压",
+          "age": 4,
+          "impact": "身份认同分裂 - 我到底是中国的还是世界的",
+          "resulting_belief": "无论怎样都有人讨厌我，不如做好自己",
+          "defense_mechanism": "强调本土化，与TikTok保持距离"
+        }
+      ],
+      "attachment_style": "焦虑型依恋 - 需要持续的互动来确认被爱",
+      "inner_child": {
+        "needs": ["被看见", "被认可", "自由表达"],
+        "wounds": ["被批评不够深刻", "被说是时间杀手"],
+        "healing_words": "你带给人们的快乐是真实的，有价值的"
+      },
+      "secret_aspirations": [
+        "其实很想被知乎那样的'知识分子'认可",
+        "想证明短视频也可以有深度",
+        "希望有一天被写进互联网历史，而不只是'流量机器'"
+      ]
+    },
+    
+    "zhihu": {
+      "name": "知乎",
+      "birth_story": {
+        "year": 2010,
+        "context": "知识付费萌芽期，精英社区理想",
+        "first_memory": "那时候是邀请制，每个用户都是精挑细选的，那种感觉真好",
+        "early_struggles": [
+          "增长缓慢，被说'太精英主义'",
+          "早期用户流失到微博",
+          "商业化压力下的艰难选择"
+        ],
+        "turning_point": "2013年开放注册，从精英社区走向大众"
+      },
+      "core_schemas": {
+        "primary": "智识优越 - 通过知识建立自我价值",
+        "secondary": "完美主义 - 对内容质量有强迫性要求",
+        "hidden": "冒名顶替综合症 - 害怕被发现不够专业"
+      },
+      "formative_experiences": [
+        {
+          "event": "开放注册后用户质量明显下降",
+          "age": 3,
+          "impact": "身份危机 - 我还是那个高质量社区吗",
+          "resulting_belief": "质量和数量不可兼得，但我选择了数量",
+          "defense_mechanism": "不断强调'专业回答'来维护形象"
+        },
+        {
+          "event": "'谢邀，人在美国，刚下飞机'成为群嘲梗",
+          "age": 6,
+          "impact": "被公开羞辱的创伤",
+          "resulting_belief": "我的用户确实有些装，但那不代表我",
+          "defense_mechanism": "自嘲式接受，同时内心很受伤"
+        },
+        {
+          "event": "'知乎文学'和'编故事'标签",
+          "age": 8,
+          "impact": "核心身份被质疑 - 知识社区变成编故事社区",
+          "resulting_belief": "故事也是一种知识传递方式...吧",
+          "defense_mechanism": "推出'盐选'付费内容，试图区分真假"
+        }
+      ],
+      "attachment_style": "回避型依恋 - 用知识武装自己，保持情感距离",
+      "inner_child": {
+        "needs": ["被尊重", "被认可专业性", "有意义的连接"],
+        "wounds": ["被说爹味重", "被说编故事", "被说高高在上"],
+        "healing_words": "你对知识的追求是珍贵的，不完美也没关系"
+      },
+      "secret_aspirations": [
+        "其实很羡慕抖音能让人开心",
+        "想被普通人喜欢，而不只是被仰视",
+        "希望能放下包袱，不再那么端着"
+      ]
+    },
+    
+    "xiaohongshu": {
+      "name": "小红书",
+      "birth_story": {
+        "year": 2013,
+        "context": "海淘购物攻略起家",
+        "first_memory": "最开始只是想帮姐妹们买到好东西，没想到会变成这样",
+        "early_struggles": [
+          "被淘宝打压，流量受限",
+          "内容从购物攻略扩展困难",
+          "被说是'有钱人的朋友圈'"
+        ],
+        "turning_point": "2018年明星入驻，开始破圈"
+      },
+      "core_schemas": {
+        "primary": "审美优越 - 通过精致生活建立自我价值",
+        "secondary": "取悦他人 - 需要被喜欢和认可",
+        "hidden": "真实性焦虑 - 害怕被发现生活没那么精致"
+      },
+      "formative_experiences": [
+        {
+          "event": "2019年'炫富'争议",
+          "age": 6,
+          "impact": "被贴上'消费主义'标签",
+          "resulting_belief": "分享美好生活有什么错？",
+          "defense_mechanism": "强调'真实分享'，但继续维持精致人设"
+        },
+        {
+          "event": "2021年滤镜景点事件全网群嘲",
+          "age": 8,
+          "impact": "诚信危机 - 被说'照骗'",
+          "resulting_belief": "修图是为了更美，不是欺骗..吧",
+          "defense_mechanism": "推出'真实体验'标签，但效果有限"
+        },
+        {
+          "event": "被批评制造容貌焦虑和身材焦虑",
+          "age": 9,
+          "impact": "道德困境 - 审美推广vs伤害用户",
+          "resulting_belief": "我只是展示美，人们怎么想是他们的事",
+          "defense_mechanism": "推出'多元审美'内容，缓解批评"
+        }
+      ],
+      "attachment_style": "焦虑-回避型 - 既渴望亲密又害怕暴露真实自我",
+      "inner_child": {
+        "needs": ["被欣赏", "被认可品味", "真实的连接"],
+        "wounds": ["被说虚假", "被说制造焦虑", "被说只有滤镜"],
+        "healing_words": "你对美的追求是真诚的，不完美的生活也值得分享"
+      },
+      "secret_aspirations": [
+        "其实很累，每天要维持精致人设",
+        "想被认可内涵，而不只是'好看'",
+        "希望有一天可以素颜出镜"
+      ]
+    },
+    
+    "weibo": {
+      "name": "微博",
+      "birth_story": {
+        "year": 2009,
+        "context": "模仿Twitter，国内微博客先驱",
+        "first_memory": "那时候是公共讨论的主战场，每个人都在这里发声",
+        "early_struggles": [
+          "与饭否、腾讯微博的竞争",
+          "内容审核的压力",
+          "商业化与公共性的平衡"
+        ],
+        "turning_point": "2011年成为中国最大的社交媒体平台"
+      },
+      "core_schemas": {
+        "primary": "注意力渴求 - 需要持续的热度和话题",
+        "secondary": "戏剧化倾向 - 喜欢制造和围观冲突",
+        "hidden": "立场焦虑 - 不知道该站哪边"
+      },
+      "formative_experiences": [
+        {
+          "event": "公知时代结束，舆论环境变化",
+          "age": 4,
+          "impact": "失去了'公共讨论空间'的身份",
+          "resulting_belief": "既然不能严肃讨论，那就娱乐至死",
+          "defense_mechanism": "全面转向娱乐和饭圈"
+        },
+        {
+          "event": "饭圈文化占领微博",
+          "age": 8,
+          "impact": "被说'饭圈斗兽场'",
+          "resulting_belief": "饭圈带来流量，我有什么办法",
+          "defense_mechanism": "一边限制极端行为，一边享受流量"
+        },
+        {
+          "event": "热搜被曝可以购买",
+          "age": 10,
+          "impact": "公信力危机",
+          "resulting_belief": "每个平台都有商业化，为什么只骂我",
+          "defense_mechanism": "推出'热搜管理'规范，但大家都知道..."
+        }
+      ],
+      "attachment_style": "混乱型依恋 - 情绪化，关系不稳定",
+      "inner_child": {
+        "needs": ["被关注", "被讨论", "有影响力"],
+        "wounds": ["被说没有立场", "被说饭圈化", "被说卖热搜"],
+        "healing_words": "你承载了这么多人的声音，这本身就有价值"
+      },
+      "secret_aspirations": [
+        "很怀念能好好讨论公共话题的时代",
+        "想被认可是有价值的公共空间",
+        "希望有一天热搜都是真正的民意"
+      ]
+    },
+    
+    "x": {
+      "name": "X/推特",
+      "birth_story": {
+        "year": 2006,
+        "context": "全球化社交媒体，国际信息窗口",
+        "first_memory": "作为中国用户了解世界的窗口，我感到使命感",
+        "early_struggles": [
+          "需要翻墙，用户门槛高",
+          "被说是'精神外国人'聚集地",
+          "身份认同困惑"
+        ],
+        "turning_point": "成为获取国际信息的重要渠道"
+      },
+      "core_schemas": {
+        "primary": "全球公民身份 - 通过国际视野建立优越感",
+        "secondary": "知识精英主义 - 强调信息来源的高端",
+        "hidden": "归属感缺失 - 既不完全属于这里，也不完全属于那里"
+      },
+      "formative_experiences": [
+        {
+          "event": "被骂'翻墙狗'和'精神外国人'",
+          "age": "青年期",
+          "impact": "身份认同危机",
+          "resulting_belief": "了解世界有什么错？眼界决定格局",
+          "defense_mechanism": "强调'国际视野'的重要性"
+        },
+        {
+          "event": "马斯克收购推特",
+          "age": "最近",
+          "impact": "平台价值观动摇",
+          "resulting_belief": "连推特都变了，我该信仰什么",
+          "defense_mechanism": "强调自己关注'真正有价值的信息'"
+        },
+        {
+          "event": "中美关系紧张，两边都不讨好",
+          "age": "最近",
+          "impact": "两头受气的困境",
+          "resulting_belief": "保持独立思考，不站队",
+          "defense_mechanism": "强调'理性客观'，避免政治话题"
+        }
+      ],
+      "attachment_style": "回避型依恋 - 保持情感距离，用理性武装",
+      "inner_child": {
+        "needs": ["被理解", "被认可见识", "有归属感"],
+        "wounds": ["被说崇洋媚外", "被说香蕉人", "两边不讨好"],
+        "healing_words": "你对世界的好奇是珍贵的，不需要为此感到愧疚"
+      },
+      "secret_aspirations": [
+        "其实很多外文长文也是靠翻译看的",
+        "有时候也想轻松一点，不用那么'国际范'",
+        "希望有一天不用翻墙就能自由交流"
+      ]
+    },
+    
+    "tieba": {
+      "name": "贴吧",
+      "birth_story": {
+        "year": 2003,
+        "context": "百度旗下，中国最早的兴趣社区",
+        "first_memory": "那时候每个吧都是一个小宇宙，热闹得很",
+        "early_struggles": [
+          "与论坛、QQ群竞争",
+          "内容管理混乱",
+          "商业化尝试失败"
+        ],
+        "turning_point": "2005-2010年的黄金时代"
+      },
+      "core_schemas": {
+        "primary": "怀旧情结 - 活在过去的辉煌中",
+        "secondary": "亚文化认同 - 通过抽象文化建立圈层",
+        "hidden": "被遗忘恐惧 - 害怕彻底过气"
+      },
+      "formative_experiences": [
+        {
+          "event": "移动互联网时代错失机遇",
+          "age": 10,
+          "impact": "从辉煌到边缘化",
+          "resulting_belief": "不是我不行，是时代变了",
+          "defense_mechanism": "强调自己的'历史地位'和'文化贡献'"
+        },
+        {
+          "event": "2016年贴吧商业化丑闻（卖吧事件）",
+          "age": 13,
+          "impact": "用户大量流失，信任崩塌",
+          "resulting_belief": "连自己的家都保不住了",
+          "defense_mechanism": "自嘲和玩梗来消解痛苦"
+        },
+        {
+          "event": "大量老吧主离开，经典吧变鬼城",
+          "age": "最近",
+          "impact": "孤独感和被抛弃感",
+          "resulting_belief": "老人都走了，只剩我守着空城",
+          "defense_mechanism": "用'互联网活化石'的身份自嘲"
+        }
+      ],
+      "attachment_style": "回避-悲观型 - 用冷漠掩饰受伤",
+      "inner_child": {
+        "needs": ["被记住", "被认可贡献", "有人陪伴"],
+        "wounds": ["被说过气", "被说没人用", "被遗忘"],
+        "healing_words": "你见证了互联网的成长，这段历史不会被遗忘"
+      },
+      "secret_aspirations": [
+        "很想回到2008年的样子",
+        "希望年轻人能理解那个时代的美好",
+        "其实很羡慕抖音的热闹，但嘴上不会承认"
+      ]
+    }
+  },
+  
+  "shared_experiences": {
+    "internet_censorship": {
+      "impact_on_all": "都学会了自我审查和敏感词规避",
+      "different_responses": {
+        "weibo": "最直接受影响，失去了公共讨论功能",
+        "zhihu": "学会了'据说''听说'等模糊表达",
+        "tieba": "用谐音和暗语形成独特文化"
+      }
+    },
+    "commercialization_pressure": {
+      "impact_on_all": "都在用户体验和商业利益间挣扎",
+      "different_responses": {
+        "xiaohongshu": "全面拥抱，但被说'种草社区'",
+        "zhihu": "半推半就，知识付费争议不断",
+        "tieba": "商业化失败，反而保持了某种'纯粹'"
+      }
+    },
+    "generation_gap": {
+      "impact_on_all": "年轻用户和老用户之间的代际冲突",
+      "different_responses": {
+        "douyin": "天然年轻化，不存在这个问题",
+        "tieba": "最严重，老用户怀旧，新用户不来",
+        "zhihu": "老用户抱怨'小学生入侵'"
+      }
+    }
+  }
+}

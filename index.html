@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>平台人格群聊</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-tertiary: #1a1a1a;
+            --bg-card: #1e1e1e;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --border-color: #2a2a2a;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            
+            /* Platform Colors */
+            --douyin: #000000;
+            --zhihu: #0066ff;
+            --xiaohongshu: #ff2442;
+            --weibo: #ff8200;
+            --x: #000000;
+            --tieba: #4a90e2;
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-full: 9999px;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ==================== Layout ==================== */
+        .app-container {
+            display: flex;
+            height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ==================== Sidebar ==================== */
+        .sidebar {
+            width: 320px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-header h1 {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .sidebar-header p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .section-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            padding-left: 4px;
+        }
+
+        /* Platform Selection */
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .platform-card {
+            background: var(--bg-tertiary);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .platform-card:hover {
+            background: var(--bg-card);
+            transform: translateY(-2px);
+        }
+
+        .platform-card.selected {
+            border-color: var(--accent);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .platform-card.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .platform-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .platform-card-name {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .platform-card-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Topic Selection */
+        .topic-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .topic-item {
+            background: var(--bg-tertiary);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .topic-item:hover {
+            background: var(--bg-card);
+        }
+
+        .topic-item.selected {
+            border-color: var(--accent);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .topic-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .topic-category {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .refresh-btn {
+            width: 100%;
+            padding: 10px;
+            background: transparent;
+            border: 1px dashed var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 24px;
+        }
+
+        .refresh-btn:hover {
+            border-color: var(--text-secondary);
+            color: var(--text-primary);
+        }
+
+        /* Start Button */
+        .start-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--accent);
+            border: none;
+            border-radius: var(--radius-md);
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .start-btn:hover:not(:disabled) {
+            background: var(--accent-hover);
+        }
+
+        .start-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ==================== Chat Area ==================== */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-primary);
+        }
+
+        /* Chat Header */
+        .chat-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-secondary);
+        }
+
+        .chat-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-avatars {
+            display: flex;
+        }
+
+        .chat-avatar-item {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-left: -8px;
+            border: 2px solid var(--bg-secondary);
+        }
+
+        .chat-avatar-item:first-child {
+            margin-left: 0;
+        }
+
+        .chat-title {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .chat-topic {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .chat-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-action-btn {
+            padding: 8px 16px;
+            background: var(--bg-tertiary);
+            border: none;
+            border-radius: var(--radius-full);
+            color: var(--text-secondary);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .chat-action-btn:hover {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .chat-action-btn.danger {
+            color: #ef4444;
+        }
+
+        .chat-action-btn.danger:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* Emotion Bar */
+        .emotion-bar {
+            padding: 12px 24px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            gap: 24px;
+        }
+
+        .emotion-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .emotion-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .emotion-info {
+            flex: 1;
+        }
+
+        .emotion-name {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .emotion-track {
+            height: 4px;
+            background: var(--bg-tertiary);
+            border-radius: 2px;
+            margin-top: 4px;
+            overflow: hidden;
+        }
+
+        .emotion-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.5s ease, background 0.3s ease;
+        }
+
+        .emotion-fill.high { background: linear-gradient(90deg, #22c55e, #4ade80); }
+        .emotion-fill.medium { background: linear-gradient(90deg, #eab308, #fbbf24); }
+        .emotion-fill.low { background: linear-gradient(90deg, #ef4444, #f87171); }
+
+        .emotion-value {
+            font-size: 12px;
+            font-weight: 500;
+            min-width: 40px;
+            text-align: right;
+        }
+
+        /* Messages Container */
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Message Bubble */
+        .message {
+            display: flex;
+            gap: 12px;
+            max-width: 75%;
+            animation: messageIn 0.3s ease;
+        }
+
+        @keyframes messageIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+            margin-left: auto;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .message-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .message.user .message-content {
+            align-items: flex-end;
+        }
+
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 4px;
+        }
+
+        .message.user .message-header {
+            flex-direction: row-reverse;
+        }
+
+        .message-name {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .message-bubble {
+            padding: 12px 16px;
+            border-radius: var(--radius-lg);
+            font-size: 14px;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        .message.platform .message-bubble {
+            background: var(--bg-card);
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.user .message-bubble {
+            background: var(--accent);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.system .message-bubble {
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 13px;
+            text-align: center;
+            padding: 8px 16px;
+        }
+
+        .message.system {
+            max-width: 100%;
+            justify-content: center;
+        }
+
+        /* Special Message States */
+        .message.breakpoint .message-bubble {
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            color: white;
+        }
+
+        .message.breakpoint::before {
+            content: '💔 破防';
+            position: absolute;
+            top: -24px;
+            left: 52px;
+            font-size: 12px;
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        .message.betrayal .message-bubble {
+            background: linear-gradient(135deg, #7c3aed, #4c1d95);
+            color: white;
+            border: 1px solid #a78bfa;
+        }
+
+        .message.betrayal::before {
+            content: '⚡ 叛变';
+            position: absolute;
+            top: -24px;
+            left: 52px;
+            font-size: 12px;
+            color: #a78bfa;
+            font-weight: 600;
+        }
+
+        /* Audio Player */
+        .message-audio {
+            margin-top: 8px;
+        }
+
+        .audio-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: var(--radius-full);
+            color: inherit;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .audio-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .audio-btn.playing {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        /* Input Area */
+        .input-area {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .input-field {
+            flex: 1;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 12px 16px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: inherit;
+            resize: none;
+            min-height: 44px;
+            max-height: 120px;
+            transition: border-color 0.2s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .input-field::placeholder {
+            color: var(--text-muted);
+        }
+
+        .send-btn {
+            width: 44px;
+            height: 44px;
+            background: var(--accent);
+            border: none;
+            border-radius: var(--radius-md);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .send-btn:hover:not(:disabled) {
+            background: var(--accent-hover);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .send-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* ==================== Private Message Modal ==================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            max-width: 400px;
+            width: 90%;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .modal-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .modal-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .modal-content {
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-btn.cooperate {
+            background: #22c55e;
+            color: white;
+        }
+
+        .modal-btn.neutral {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .modal-btn.expose {
+            background: #ef4444;
+            color: white;
+        }
+
+        .modal-btn:hover {
+            filter: brightness(1.1);
+        }
+
+        /* ==================== Summary Modal ==================== */
+        .summary-modal {
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .summary-section {
+            margin-bottom: 24px;
+        }
+
+        .summary-section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .soul-type {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+
+        .soul-type h3 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .soul-type p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .score-bar {
+            margin-bottom: 12px;
+        }
+
+        .score-bar-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        .score-bar-name {
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .score-bar-value {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .score-bar-track {
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .score-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .roast-text {
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            line-height: 1.6;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* ==================== Empty State ==================== */
+        .empty-state {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 48px;
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-state-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .empty-state-text {
+            font-size: 14px;
+        }
+
+        /* ==================== Responsive ==================== */
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                max-height: 50vh;
+            }
+
+            .chat-area {
+                height: 50vh;
+            }
+
+            .platform-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .message {
+                max-width: 85%;
+            }
+        }
+
+        /* ==================== Scrollbar ==================== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        /* ==================== Hidden ==================== */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>🎭 平台人格群聊</h1>
+                <p>选择平台和话题，开始群聊</p>
+            </div>
+            
+            <div class="sidebar-content">
+                <!-- Platform Selection -->
+                <div class="section-title">选择两个平台</div>
+                <div class="platform-grid" id="platformGrid">
+                    <!-- Platforms will be loaded here -->
+                </div>
+
+                <!-- Topic Selection -->
+                <div class="section-title">选择话题</div>
+                <div class="topic-list" id="topicList">
+                    <!-- Topics will be loaded here -->
+                </div>
+                <button class="refresh-btn" onclick="loadTopics()">🔄 换一批话题</button>
+
+                <!-- Start Button -->
+                <button class="start-btn" id="startBtn" disabled onclick="startSession()">
+                    开始群聊
+                </button>
+            </div>
+        </aside>
+
+        <!-- Chat Area -->
+        <main class="chat-area">
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState">
+                <div class="empty-state-icon">💬</div>
+                <div class="empty-state-title">选择平台和话题</div>
+                <div class="empty-state-text">让AI平台们吵起来，看看谁会先破防！</div>
+            </div>
+
+            <!-- Chat Container (hidden initially) -->
+            <div id="chatContainer" class="hidden">
+                <!-- Chat Header -->
+                <div class="chat-header">
+                    <div class="chat-info">
+                        <div class="chat-avatars" id="chatAvatars"></div>
+                        <div>
+                            <div class="chat-title" id="chatTitle">群聊</div>
+                            <div class="chat-topic" id="chatTopic"></div>
+                        </div>
+                    </div>
+                    <div class="chat-actions">
+                        <button class="chat-action-btn" onclick="toggleVoice()">
+                            <span id="voiceIcon">🔇</span> 语音
+                        </button>
+                        <button class="chat-action-btn danger" onclick="endSession()">
+                            结束对话
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Emotion Bar -->
+                <div class="emotion-bar" id="emotionBar"></div>
+
+                <!-- Messages -->
+                <div class="messages-container" id="messagesContainer"></div>
+
+                <!-- Input Area -->
+                <div class="input-area">
+                    <div class="input-wrapper">
+                        <textarea 
+                            class="input-field" 
+                            id="messageInput" 
+                            placeholder="说点什么..." 
+                            rows="1"
+                            onkeydown="handleKeyDown(event)"
+                            oninput="autoResize(this)"
+                        ></textarea>
+                        <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Private Message Modal -->
+    <div class="modal-overlay" id="privateModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-avatar" id="privateAvatar"></div>
+                <div>
+                    <div class="modal-title" id="privateTitle">私信</div>
+                    <div class="modal-subtitle">悄悄对你说...</div>
+                </div>
+            </div>
+            <div class="modal-content" id="privateContent"></div>
+            <div class="modal-actions">
+                <button class="modal-btn cooperate" onclick="handlePrivateChoice(0)">配合 ✅</button>
+                <button class="modal-btn neutral" onclick="handlePrivateChoice(1)">中立 😐</button>
+                <button class="modal-btn expose" onclick="handlePrivateChoice(2)">公开 📢</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Modal -->
+    <div class="modal-overlay" id="summaryModal">
+        <div class="modal summary-modal">
+            <div class="modal-header">
+                <div class="modal-avatar">🎭</div>
+                <div>
+                    <div class="modal-title">对话总结</div>
+                    <div class="modal-subtitle">你的灵魂纯度测试结果</div>
+                </div>
+            </div>
+            <div id="summaryContent"></div>
+            <div class="modal-actions">
+                <button class="modal-btn neutral" onclick="closeSummary()" style="flex: 1;">
+                    重新开始
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== State ====================
+        const state = {
+            platforms: {},
+            selectedPlatforms: [],
+            topics: [],
+            selectedTopic: null,
+            sessionId: null,
+            voiceEnabled: false,
+            currentAudio: null,
+        };
+
+        // Platform Icons (SVG-based logos represented as colored backgrounds with icons)
+        const platformIcons = {
+            douyin: { bg: '#000000', icon: '🎵' },
+            zhihu: { bg: '#0066ff', icon: '知' },
+            xiaohongshu: { bg: '#ff2442', icon: '📕' },
+            weibo: { bg: '#ff8200', icon: '微' },
+            x: { bg: '#000000', icon: '𝕏' },
+            tieba: { bg: '#4a90e2', icon: '贴' },
+        };
+
+        // ==================== Init ====================
+        async function init() {
+            await loadPlatforms();
+            await loadTopics();
+        }
+
+        // ==================== API Calls ====================
+        async function loadPlatforms() {
+            try {
+                const res = await fetch('/api/platforms');
+                state.platforms = await res.json();
+                renderPlatforms();
+            } catch (e) {
+                console.error('Failed to load platforms:', e);
+            }
+        }
+
+        async function loadTopics() {
+            try {
+                const res = await fetch('/api/topics');
+                state.topics = await res.json();
+                state.selectedTopic = null;
+                renderTopics();
+                updateStartButton();
+            } catch (e) {
+                console.error('Failed to load topics:', e);
+            }
+        }
+
+        async function startSession() {
+            if (state.selectedPlatforms.length !== 2 || !state.selectedTopic) return;
+
+            try {
+                const res = await fetch('/api/session/start', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        platform1: state.selectedPlatforms[0],
+                        platform2: state.selectedPlatforms[1],
+                        topic: state.selectedTopic.title
+                    })
+                });
+                
+                const data = await res.json();
+                state.sessionId = data.session_id;
+                
+                showChatUI();
+                updateEmotions(data.emotions);
+                
+                for (const msg of data.messages) {
+                    addMessage(msg);
+                }
+            } catch (e) {
+                console.error('Failed to start session:', e);
+            }
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            if (!message || !state.sessionId) return;
+
+            input.value = '';
+            autoResize(input);
+
+            // Add user message immediately
+            addMessage({
+                role: 'user',
+                content: message,
+                timestamp: Date.now() / 1000
+            });
+
+            try {
+                const res = await fetch(`/api/session/${state.sessionId}/message`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+                
+                const data = await res.json();
+                
+                // Add AI messages
+                for (const msg of data.messages) {
+                    if (msg.role !== 'user') {
+                        addMessage(msg);
+                    }
+                }
+                
+                updateEmotions(data.emotions);
+                
+                // Handle private message
+                if (data.private_message) {
+                    showPrivateMessage(data.private_message);
+                }
+            } catch (e) {
+                console.error('Failed to send message:', e);
+            }
+        }
+
+        async function handlePrivateChoice(choice) {
+            closeModal('privateModal');
+            
+            try {
+                const res = await fetch(`/api/session/${state.sessionId}/private-choice`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ choice })
+                });
+                
+                const data = await res.json();
+                updateEmotions(data.emotions);
+                
+                if (data.result && data.result.feedback) {
+                    addMessage({
+                        role: 'system',
+                        content: data.result.feedback
+                    });
+                }
+            } catch (e) {
+                console.error('Failed to handle private choice:', e);
+            }
+        }
+
+        async function endSession() {
+            if (!state.sessionId) return;
+            
+            try {
+                const res = await fetch(`/api/session/${state.sessionId}/end`, {
+                    method: 'POST'
+                });
+                
+                const summary = await res.json();
+                showSummary(summary);
+            } catch (e) {
+                console.error('Failed to end session:', e);
+            }
+        }
+
+        // ==================== Rendering ====================
+        function renderPlatforms() {
+            const grid = document.getElementById('platformGrid');
+            grid.innerHTML = '';
+            
+            for (const [id, platform] of Object.entries(state.platforms)) {
+                const icon = platformIcons[id] || { bg: '#666', icon: '?' };
+                const card = document.createElement('div');
+                card.className = 'platform-card';
+                card.dataset.id = id;
+                card.onclick = () => togglePlatform(id);
+                
+                card.innerHTML = `
+                    <div class="platform-avatar" style="background: ${icon.bg}; color: white;">
+                        ${icon.icon}
+                    </div>
+                    <div class="platform-card-name">${platform.name}</div>
+                    <div class="platform-card-meta">${platform.age}岁 · ${platform.mbti}</div>
+                `;
+                
+                grid.appendChild(card);
+            }
+        }
+
+        function renderTopics() {
+            const list = document.getElementById('topicList');
+            list.innerHTML = '';
+            
+            for (const topic of state.topics) {
+                const item = document.createElement('div');
+                item.className = 'topic-item';
+                item.onclick = () => selectTopic(topic);
+                
+                item.innerHTML = `
+                    <div class="topic-title">${topic.title}</div>
+                    <div class="topic-category">${topic.category}</div>
+                `;
+                
+                list.appendChild(item);
+            }
+        }
+
+        function togglePlatform(id) {
+            const index = state.selectedPlatforms.indexOf(id);
+            if (index > -1) {
+                state.selectedPlatforms.splice(index, 1);
+            } else if (state.selectedPlatforms.length < 2) {
+                state.selectedPlatforms.push(id);
+            }
+            
+            // Update UI
+            document.querySelectorAll('.platform-card').forEach(card => {
+                const cardId = card.dataset.id;
+                card.classList.toggle('selected', state.selectedPlatforms.includes(cardId));
+                card.classList.toggle('disabled', 
+                    state.selectedPlatforms.length >= 2 && !state.selectedPlatforms.includes(cardId)
+                );
+            });
+            
+            updateStartButton();
+        }
+
+        function selectTopic(topic) {
+            state.selectedTopic = topic;
+            
+            document.querySelectorAll('.topic-item').forEach((item, i) => {
+                item.classList.toggle('selected', state.topics[i] === topic);
+            });
+            
+            updateStartButton();
+        }
+
+        function updateStartButton() {
+            const btn = document.getElementById('startBtn');
+            const canStart = state.selectedPlatforms.length === 2 && state.selectedTopic;
+            btn.disabled = !canStart;
+            
+            if (canStart) {
+                const p1 = state.platforms[state.selectedPlatforms[0]]?.name;
+                const p2 = state.platforms[state.selectedPlatforms[1]]?.name;
+                btn.textContent = `开始 ${p1} vs ${p2}`;
+            } else if (state.selectedPlatforms.length < 2) {
+                btn.textContent = `还需选择 ${2 - state.selectedPlatforms.length} 个平台`;
+            } else {
+                btn.textContent = '请选择话题';
+            }
+        }
+
+        function showChatUI() {
+            document.getElementById('emptyState').classList.add('hidden');
+            document.getElementById('chatContainer').classList.remove('hidden');
+            
+            // Update header
+            const avatarsContainer = document.getElementById('chatAvatars');
+            avatarsContainer.innerHTML = state.selectedPlatforms.map(id => {
+                const icon = platformIcons[id];
+                return `<div class="chat-avatar-item" style="background: ${icon.bg}; color: white;">${icon.icon}</div>`;
+            }).join('');
+            
+            const p1 = state.platforms[state.selectedPlatforms[0]]?.name;
+            const p2 = state.platforms[state.selectedPlatforms[1]]?.name;
+            document.getElementById('chatTitle').textContent = `${p1} vs ${p2}`;
+            document.getElementById('chatTopic').textContent = state.selectedTopic.title;
+            
+            // Clear messages
+            document.getElementById('messagesContainer').innerHTML = '';
+        }
+
+        function addMessage(msg) {
+            const container = document.getElementById('messagesContainer');
+            const div = document.createElement('div');
+            
+            let className = 'message';
+            if (msg.role === 'user') className += ' user';
+            else if (msg.role === 'system') className += ' system';
+            else if (msg.role === 'platform') className += ' platform';
+            
+            if (msg.is_breakpoint) className += ' breakpoint';
+            if (msg.is_betrayal) className += ' betrayal';
+            
+            div.className = className;
+            
+            if (msg.role === 'system') {
+                div.innerHTML = `<div class="message-bubble">${msg.content}</div>`;
+            } else {
+                const icon = msg.role === 'user' 
+                    ? { bg: 'var(--accent)', icon: '👤' }
+                    : (platformIcons[msg.platform_id] || { bg: '#666', icon: '?' });
+                
+                const name = msg.role === 'user' 
+                    ? '你' 
+                    : (state.platforms[msg.platform_id]?.name || msg.platform_id);
+                
+                const time = new Date(msg.timestamp * 1000).toLocaleTimeString('zh-CN', { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+                
+                let audioHTML = '';
+                if (msg.audio && state.voiceEnabled) {
+                    audioHTML = `
+                        <div class="message-audio">
+                            <button class="audio-btn" onclick="playAudio(this, '${msg.audio}')">
+                                🔊 播放语音
+                            </button>
+                        </div>
+                    `;
+                }
+                
+                div.innerHTML = `
+                    <div class="message-avatar" style="background: ${icon.bg}; color: white;">
+                        ${icon.icon}
+                    </div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-name">${name}</span>
+                            <span class="message-time">${time}</span>
+                        </div>
+                        <div class="message-bubble">${msg.content}</div>
+                        ${audioHTML}
+                    </div>
+                `;
+            }
+            
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function updateEmotions(emotions) {
+            const bar = document.getElementById('emotionBar');
+            bar.innerHTML = '';
+            
+            for (const [id, data] of Object.entries(emotions)) {
+                const icon = platformIcons[id];
+                const name = state.platforms[id]?.name || id;
+                const value = data.value;
+                const level = value > 60 ? 'high' : value > 30 ? 'medium' : 'low';
+                
+                bar.innerHTML += `
+                    <div class="emotion-item">
+                        <div class="emotion-avatar" style="background: ${icon.bg}; color: white;">
+                            ${icon.icon}
+                        </div>
+                        <div class="emotion-info">
+                            <div class="emotion-name">${name}</div>
+                            <div class="emotion-track">
+                                <div class="emotion-fill ${level}" style="width: ${value}%"></div>
+                            </div>
+                        </div>
+                        <div class="emotion-value">${data.emoji} ${value}%</div>
+                    </div>
+                `;
+            }
+        }
+
+        function showPrivateMessage(msg) {
+            const icon = platformIcons[msg.from_platform];
+            const name = state.platforms[msg.from_platform]?.name || msg.from_platform;
+            
+            document.getElementById('privateAvatar').style.background = icon.bg;
+            document.getElementById('privateAvatar').style.color = 'white';
+            document.getElementById('privateAvatar').textContent = icon.icon;
+            document.getElementById('privateTitle').textContent = `${name} 的私信`;
+            document.getElementById('privateContent').textContent = msg.content;
+            
+            document.getElementById('privateModal').classList.add('active');
+        }
+
+        function showSummary(summary) {
+            const content = document.getElementById('summaryContent');
+            const soul = summary.soul_result || {};
+            const soulType = soul.soul_type || {};
+            const scores = soul.scores || {};
+            
+            let scoresHTML = '';
+            for (const [pid, score] of Object.entries(scores)) {
+                const icon = platformIcons[pid];
+                const name = state.platforms[pid]?.name || pid;
+                scoresHTML += `
+                    <div class="score-bar">
+                        <div class="score-bar-header">
+                            <span class="score-bar-name">
+                                <span style="background: ${icon.bg}; color: white; padding: 2px 6px; border-radius: 4px; font-size: 11px;">${icon.icon}</span>
+                                ${name}
+                            </span>
+                            <span class="score-bar-value">${score.toFixed(1)}%</span>
+                        </div>
+                        <div class="score-bar-track">
+                            <div class="score-bar-fill" style="width: ${score}%; background: ${icon.bg};"></div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            content.innerHTML = `
+                <div class="summary-section">
+                    <div class="soul-type">
+                        <h3>${soulType.name || '神秘灵魂'}</h3>
+                        <p>${soulType.description || '你的灵魂无法被定义'}</p>
+                    </div>
+                </div>
+                
+                <div class="summary-section">
+                    <div class="summary-section-title">📊 平台成分</div>
+                    ${scoresHTML}
+                </div>
+                
+                ${soul.roast ? `
+                <div class="summary-section">
+                    <div class="summary-section-title">💬 毒舌点评</div>
+                    <div class="roast-text">${soul.roast}</div>
+                </div>
+                ` : ''}
+            `;
+            
+            document.getElementById('summaryModal').classList.add('active');
+        }
+
+        // ==================== Utilities ====================
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        function closeSummary() {
+            closeModal('summaryModal');
+            resetUI();
+        }
+
+        function resetUI() {
+            state.sessionId = null;
+            state.selectedPlatforms = [];
+            state.selectedTopic = null;
+            
+            document.getElementById('emptyState').classList.remove('hidden');
+            document.getElementById('chatContainer').classList.add('hidden');
+            
+            document.querySelectorAll('.platform-card').forEach(card => {
+                card.classList.remove('selected', 'disabled');
+            });
+            
+            document.querySelectorAll('.topic-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            updateStartButton();
+        }
+
+        function toggleVoice() {
+            state.voiceEnabled = !state.voiceEnabled;
+            document.getElementById('voiceIcon').textContent = state.voiceEnabled ? '🔊' : '🔇';
+        }
+
+        function playAudio(btn, base64Audio) {
+            if (state.currentAudio) {
+                state.currentAudio.pause();
+                document.querySelectorAll('.audio-btn.playing').forEach(b => {
+                    b.classList.remove('playing');
+                    b.textContent = '🔊 播放语音';
+                });
+            }
+            
+            const audio = new Audio(`data:audio/mp3;base64,${base64Audio}`);
+            state.currentAudio = audio;
+            
+            btn.classList.add('playing');
+            btn.textContent = '⏸ 播放中...';
+            
+            audio.play();
+            audio.onended = () => {
+                btn.classList.remove('playing');
+                btn.textContent = '🔊 播放语音';
+                state.currentAudio = null;
+            };
+        }
+
+        function handleKeyDown(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function autoResize(el) {
+            el.style.height = 'auto';
+            el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+        }
+
+        // Initialize
+        init();
+    </script>
+</body>
+</html>
