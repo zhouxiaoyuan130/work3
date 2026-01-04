@@ -4,16 +4,16 @@
 """
 
 import streamlit as st
-import asyncio
 import json
 import random
 import time
 import base64
 import os
+import subprocess
+import tempfile
 from pathlib import Path
 from dataclasses import dataclass, field
 from typing import Optional, Dict, List, Any
-import edge_tts  # 免费的微软Edge TTS
 import httpx
 
 # ==================== 页面配置 ====================
@@ -75,17 +75,28 @@ PLATFORM_INFO = {
 
 # ==================== TTS 服务 ====================
 
-async def generate_edge_tts(text: str, voice: str) -> bytes:
-    """使用免费的 Edge TTS 生成语音"""
-    communicate = edge_tts.Communicate(text, voice)
-    audio_data = b""
-    async for chunk in communicate.stream():
-        if chunk["type"] == "audio":
-            audio_data += chunk["data"]
-    return audio_data
+def generate_edge_tts_sync(text: str, voice: str) -> bytes:
+    """使用免费的 Edge TTS 生成语音（同步版本）"""
+    try:
+        # 使用命令行方式调用 edge-tts
+        with tempfile.NamedTemporaryFile(suffix='.mp3', delete=False) as f:
+            temp_path = f.name
+        
+        cmd = ['edge-tts', '--voice', voice, '--text', text, '--write-media', temp_path]
+        result = subprocess.run(cmd, capture_output=True, timeout=30)
+        
+        if result.returncode == 0 and os.path.exists(temp_path):
+            with open(temp_path, 'rb') as f:
+                audio_data = f.read()
+            os.unlink(temp_path)
+            return audio_data
+    except Exception as e:
+        pass  # 语音生成失败时静默处理
+    
+    return None
 
-async def generate_fish_audio(text: str, api_key: str, voice_id: str) -> Optional[bytes]:
-    """使用 Fish Audio 生成用户语音"""
+def generate_fish_audio_sync(text: str, api_key: str, voice_id: str) -> Optional[bytes]:
+    """使用 Fish Audio 生成用户语音（同步版本）"""
     if not api_key or not voice_id:
         return None
     
@@ -102,18 +113,17 @@ async def generate_fish_audio(text: str, api_key: str, voice_id: str) -> Optiona
             "mp3_bitrate": 128,
         }
         
-        async with httpx.AsyncClient() as client:
-            response = await client.post(
-                "https://api.fish.audio/v1/tts",
-                headers=headers,
-                json=payload,
-                timeout=30.0
-            )
-            
-            if response.status_code == 200:
-                return response.content
-    except Exception as e:
-        st.error(f"Fish Audio 错误: {e}")
+        response = httpx.post(
+            "https://api.fish.audio/v1/tts",
+            headers=headers,
+            json=payload,
+            timeout=30.0
+        )
+        
+        if response.status_code == 200:
+            return response.content
+    except Exception:
+        pass  # 静默处理错误
     
     return None
 
@@ -125,8 +135,8 @@ def get_audio_html(audio_data: bytes, autoplay: bool = True) -> str:
 
 # ==================== LLM API ====================
 
-async def call_deepseek(messages: List[Dict], api_key: str) -> str:
-    """调用 DeepSeek API"""
+def call_deepseek_sync(messages: List[Dict], api_key: str) -> str:
+    """调用 DeepSeek API（同步版本）"""
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
@@ -139,22 +149,21 @@ async def call_deepseek(messages: List[Dict], api_key: str) -> str:
         "max_tokens": 500,
     }
     
-    async with httpx.AsyncClient() as client:
-        try:
-            response = await client.post(
-                "https://api.deepseek.com/v1/chat/completions",
-                headers=headers,
-                json=data,
-                timeout=30.0
-            )
-            response.raise_for_status()
-            result = response.json()
-            return result["choices"][0]["message"]["content"]
-        except Exception as e:
-            return f"[API错误: {e}]"
+    try:
+        response = httpx.post(
+            "https://api.deepseek.com/v1/chat/completions",
+            headers=headers,
+            json=data,
+            timeout=30.0
+        )
+        response.raise_for_status()
+        result = response.json()
+        return result["choices"][0]["message"]["content"]
+    except Exception as e:
+        return f"[API错误: {e}]"
 
-async def call_zhipu(messages: List[Dict], api_key: str) -> str:
-    """调用智谱 GLM-4 API"""
+def call_zhipu_sync(messages: List[Dict], api_key: str) -> str:
+    """调用智谱 GLM-4 API（同步版本）"""
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
@@ -167,19 +176,18 @@ async def call_zhipu(messages: List[Dict], api_key: str) -> str:
         "max_tokens": 500,
     }
     
-    async with httpx.AsyncClient() as client:
-        try:
-            response = await client.post(
-                "https://open.bigmodel.cn/api/paas/v4/chat/completions",
-                headers=headers,
-                json=data,
-                timeout=30.0
-            )
-            response.raise_for_status()
-            result = response.json()
-            return result["choices"][0]["message"]["content"]
-        except Exception as e:
-            return f"[API错误: {e}]"
+    try:
+        response = httpx.post(
+            "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+            headers=headers,
+            json=data,
+            timeout=30.0
+        )
+        response.raise_for_status()
+        result = response.json()
+        return result["choices"][0]["message"]["content"]
+    except Exception as e:
+        return f"[API错误: {e}]"
 
 def mock_response(platform_id: str) -> str:
     """模拟回复（无API时使用）"""
@@ -487,17 +495,17 @@ def build_system_prompt(platform_id: str, topic: str, other_platform: str) -> st
 
 注意：你是{name}，不是AI助手。直接以{name}的身份回复。"""
 
-async def generate_ai_response(platform_id: str, topic: str, other_platform: str, history: List[Dict]) -> str:
-    """生成AI回复"""
+def generate_ai_response(platform_id: str, topic: str, other_platform: str, history: List[Dict]) -> str:
+    """生成AI回复（同步版本）"""
     system_prompt = build_system_prompt(platform_id, topic, other_platform)
     
     messages = [{"role": "system", "content": system_prompt}]
     for msg in history[-10:]:  # 只用最近10条
         if msg["role"] == "user":
             messages.append({"role": "user", "content": msg["content"]})
-        elif msg["platform_id"] == platform_id:
+        elif msg.get("platform_id") == platform_id:
             messages.append({"role": "assistant", "content": msg["content"]})
-        else:
+        elif msg.get("platform_id"):
             messages.append({"role": "user", "content": f"[{PLATFORM_INFO[msg['platform_id']]['name']}]: {msg['content']}"})
     
     # 尝试调用API
@@ -505,9 +513,9 @@ async def generate_ai_response(platform_id: str, topic: str, other_platform: str
     zhipu_key = st.session_state.get("zhipu_key", "")
     
     if deepseek_key:
-        return await call_deepseek(messages, deepseek_key)
+        return call_deepseek_sync(messages, deepseek_key)
     elif zhipu_key:
-        return await call_zhipu(messages, zhipu_key)
+        return call_zhipu_sync(messages, zhipu_key)
     else:
         return mock_response(platform_id)
 
@@ -849,17 +857,17 @@ def main():
     
     # 处理发送
     if send_clicked and user_input:
-        asyncio.run(handle_send_message(user_input))
+        handle_send_message_sync(user_input)
         st.rerun()
 
-async def handle_send_message(user_input: str):
-    """处理发送消息"""
+def handle_send_message_sync(user_input: str):
+    """同步方式处理发送消息"""
     p1, p2 = st.session_state.selected_platforms
     
     # 生成用户语音（Fish Audio）
     user_audio = None
     if st.session_state.get("fish_key") and st.session_state.get("fish_voice"):
-        user_audio = await generate_fish_audio(
+        user_audio = generate_fish_audio_sync(
             user_input,
             st.session_state.fish_key,
             st.session_state.fish_voice
@@ -883,7 +891,8 @@ async def handle_send_message(user_input: str):
             response = get_breakpoint_response(pid)
             update_emotion(pid, -30)
         else:
-            response = await generate_ai_response(
+            # 调用 AI 生成回复
+            response = generate_ai_response(
                 pid, 
                 st.session_state.current_topic,
                 other,
@@ -892,11 +901,9 @@ async def handle_send_message(user_input: str):
             update_emotion(pid, random.randint(-10, 5))
         
         # 生成AI语音（免费 Edge TTS）
+        audio_data = None
         voice = PLATFORM_INFO[pid]["voice"]
-        try:
-            audio_data = await generate_edge_tts(response, voice)
-        except:
-            audio_data = None
+        audio_data = generate_edge_tts_sync(response, voice)
         
         st.session_state.messages.append({
             "role": "platform",
